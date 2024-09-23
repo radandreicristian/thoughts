@@ -24,9 +24,10 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      - name: cloudformation-validate
+        run: |
+          aws cloudformation validate-template --template-body file://infra/s3.yaml
+
       - name: aws-deploy
         run: |
-          aws cloudformation deploy \
-          --template-file infra/s3.yaml \
-          --stack-name thoughts
-          --capabilities CAPABILITY_NAMED_IAM
+          aws cloudformation deploy --template-file infra/s3.yaml --stack-name thoughts --capabilities CAPABILITY_NAMED_IAM
