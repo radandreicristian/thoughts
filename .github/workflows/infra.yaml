@@ -33,5 +33,5 @@ jobs:
           aws cloudformation deploy \
           --template-file infra/s3.yaml \
           --stack-name thoughts \
-          --capabilities CAPABILITY_NAMED_IAM 
+          --capabilities CAPABILITY_NAMED_IAM \
           --parameter-overrides AWSAccountId=${{ secrets.AWS_ACCOUNT_ID }}
