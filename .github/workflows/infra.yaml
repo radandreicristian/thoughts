@@ -1,0 +1,32 @@
+name: deploy-infra
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
+      - name: aws-setup
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: aws-deploy
+        run: |
+          aws cloudformation deploy \
+          --template-file infra/s3.yaml \
+          --stack-name thoughts
+          --capabilities CAPABILITY_NAMED_IAM
