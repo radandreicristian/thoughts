@@ -8,3 +8,4 @@ Share your thoughts and chat with them later
 - Create an IAM user with permissions to:
   - S3
   - Bedrock
+  
