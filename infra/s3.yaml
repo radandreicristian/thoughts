@@ -3,4 +3,4 @@ Resources:
   ContentS3Bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
-      BucketName: !Sub 'content-${AWS::AccountId}-${AWS::Region}'
+      BucketName: !Sub 'thoughts-${AWS::AccountId}-${AWS::Region}'
