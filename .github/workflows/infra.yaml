@@ -28,10 +28,18 @@ jobs:
         run: |
           aws cloudformation validate-template --template-body file://infra/s3.yaml
 
-      - name: aws-deploy
+      - name: deploy-s3
         run: |
           aws cloudformation deploy \
           --template-file infra/s3.yaml \
-          --stack-name thoughts \
+          --stack-name thoughts-s3-stack \
+          --capabilities CAPABILITY_NAMED_IAM \
+          --parameter-overrides AWSAccountId=${{ secrets.AWS_ACCOUNT_ID }}
+
+      - name: deploy-iam
+        run: |
+          aws cloudformation deploy \
+          --template-file infra/iam.yaml \
+          --stack-name thoughts-iam-stack \
           --capabilities CAPABILITY_NAMED_IAM \
           --parameter-overrides AWSAccountId=${{ secrets.AWS_ACCOUNT_ID }}
